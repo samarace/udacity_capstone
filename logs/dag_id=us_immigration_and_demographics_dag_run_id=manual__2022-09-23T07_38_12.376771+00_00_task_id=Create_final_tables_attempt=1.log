@@ -1,0 +1,138 @@
+1.0.0.127.in-addr.arpa
+*** Reading local file: /Users/samar/airflow/logs/dag_id=us_immigration_and_demographics_dag/run_id=manual__2022-09-23T07:38:12.376771+00:00/task_id=Create_final_tables/attempt=1.log
+[2022-09-23 13:10:06,072] {taskinstance.py:1179} INFO - Dependencies all met for <TaskInstance: us_immigration_and_demographics_dag.Create_final_tables manual__2022-09-23T07:38:12.376771+00:00 [queued]>
+[2022-09-23 13:10:06,078] {taskinstance.py:1179} INFO - Dependencies all met for <TaskInstance: us_immigration_and_demographics_dag.Create_final_tables manual__2022-09-23T07:38:12.376771+00:00 [queued]>
+[2022-09-23 13:10:06,078] {taskinstance.py:1376} INFO - 
+--------------------------------------------------------------------------------
+[2022-09-23 13:10:06,078] {taskinstance.py:1377} INFO - Starting attempt 1 of 2
+[2022-09-23 13:10:06,078] {taskinstance.py:1378} INFO - 
+--------------------------------------------------------------------------------
+[2022-09-23 13:10:06,087] {taskinstance.py:1397} INFO - Executing <Task(CreateTableOperator): Create_final_tables> on 2022-09-23 07:38:12.376771+00:00
+[2022-09-23 13:10:06,089] {standard_task_runner.py:52} INFO - Started process 23637 to run task
+[2022-09-23 13:10:06,095] {standard_task_runner.py:79} INFO - Running: ['airflow', 'tasks', 'run', 'us_immigration_and_demographics_dag', 'Create_final_tables', 'manual__2022-09-23T07:38:12.376771+00:00', '--job-id', '413', '--raw', '--subdir', 'DAGS_FOLDER/us_immigration_and_demographics_dag.py', '--cfg-path', '/var/folders/nw/yq4dq6kn2vq9jtj6_s7xh45h0000gn/T/tmpttydd5uh', '--error-file', '/var/folders/nw/yq4dq6kn2vq9jtj6_s7xh45h0000gn/T/tmpeerux4bl']
+[2022-09-23 13:10:06,097] {standard_task_runner.py:80} INFO - Job 413: Subtask Create_final_tables
+[2022-09-23 13:10:06,142] {task_command.py:371} INFO - Running <TaskInstance: us_immigration_and_demographics_dag.Create_final_tables manual__2022-09-23T07:38:12.376771+00:00 [running]> on host 1.0.0.127.in-addr.arpa
+[2022-09-23 13:10:06,191] {taskinstance.py:1589} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=Samar Javed
+AIRFLOW_CTX_DAG_ID=us_immigration_and_demographics_dag
+AIRFLOW_CTX_TASK_ID=Create_final_tables
+AIRFLOW_CTX_EXECUTION_DATE=2022-09-23T07:38:12.376771+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=manual__2022-09-23T07:38:12.376771+00:00
+[2022-09-23 13:10:06,192] {create_table.py:28} INFO - Creating dimension and fact tables:             
+i94country
+i94port
+i94mode
+i94address
+i94visa             
+airport_codes
+global_temperature
+demographics
+immigration
+[2022-09-23 13:10:06,197] {base.py:68} INFO - Using connection ID 'postgres' for task execution.
+[2022-09-23 13:10:06,235] {sql.py:315} INFO - Running statement: 
+        CREATE TABLE IF NOT EXISTS i94country
+        (code int4 NOT NULL PRIMARY KEY,
+        country varchar(100)
+        );
+
+        CREATE TABLE IF NOT EXISTS i94port
+        (code varchar(5) NOT NULL PRIMARY KEY,
+        port varchar(100)
+        );
+
+        CREATE TABLE IF NOT EXISTS i94mode
+        (code int4 NOT NULL PRIMARY KEY,
+        mode varchar(100)
+        );
+
+        CREATE TABLE IF NOT EXISTS i94address
+        (code varchar(5) NOT NULL PRIMARY KEY,
+        state varchar(100)
+        );
+
+        CREATE TABLE IF NOT EXISTS i94visa
+        (code int4 NOT NULL PRIMARY KEY,
+        type varchar(100)  
+        );
+
+        CREATE TABLE IF NOT EXISTS immigration(
+        cicid int8 NOT NULL PRIMARY KEY,
+        i94yr int4 NOT NULL,
+        i94mon int4 NOT NULL,
+        i94cit int4 REFERENCES i94country (code),
+        i94res int4 REFERENCES i94country (code),
+        i94port varchar(5) REFERENCES i94port (code),
+        arrdate int8,
+        i94mode int4 REFERENCES i94mode (code),
+        i94addr varchar(5) REFERENCES i94address (code),
+        depdate int8,
+        i94bir int4,
+        i94visa int4 REFERENCES i94visa (code),
+        count int4,
+        dtadfile int8,
+        visapost varchar(5),
+        occup varchar(5),
+        entdepa char(1),
+        entdepd char(1),
+        entdepu char(1),
+        matflag char(1),
+        biryear int4,
+        dtaddto varchar,
+        gender char(1),
+        insnum varchar,
+        airline varchar(5),
+        admnum varchar,
+        fltno varchar(50),
+        visatype varchar(5));
+
+
+        CREATE TABLE IF NOT EXISTS demographics(
+        city varchar(50),
+        median_age float,
+        male_population int8,
+        female_population int8,
+        total_population int8,
+        no_of_veterans int8,
+        foreign_born int8,
+        avg_household_size float,
+        state_code varchar(5) REFERENCES i94address (code),
+        race varchar(100),
+        count int8,
+        PRIMARY KEY(state_code, city, race));
+
+
+        CREATE TABLE IF NOT EXISTS airport_codes(
+        ident varchar(10) not null PRIMARY KEY,      
+        type varchar(100),
+        name varchar,       
+        elevation_ft float,
+        continent varchar(50),   
+        iso_country varchar(50),     
+        iso_region varchar(50),    
+        municipality varchar,   
+        gps_code varchar(50),   
+        iata_code varchar(50),       
+        local_code varchar(50),
+        coordinates varchar(50),
+        latitude varchar(50),
+        longitude varchar(50)); 
+
+
+        CREATE TABLE IF NOT EXISTS global_temperature(
+        date timestamp not null,
+        avg_temperature float,
+        avg_temperature_uncertainty float,
+        city varchar(100),
+        country varchar(100),
+        latitude varchar(100),
+        longitude varchar(100),
+        PRIMARY KEY(date, latitude, longitude, city));
+, parameters: None
+[2022-09-23 13:10:06,279] {create_table.py:32} INFO - ===============================================================================
+[2022-09-23 13:10:06,280] {create_table.py:33} INFO -                  Dimension & Fact tables created successfully!                 
+[2022-09-23 13:10:06,280] {create_table.py:34} INFO - ===============================================================================
+[2022-09-23 13:10:06,287] {taskinstance.py:1415} INFO - Marking task as SUCCESS. dag_id=us_immigration_and_demographics_dag, task_id=Create_final_tables, execution_date=20220923T073812, start_date=20220923T074006, end_date=20220923T074006
+[2022-09-23 13:10:06,317] {local_task_job.py:156} INFO - Task exited with return code 0
+[2022-09-23 13:10:06,348] {local_task_job.py:273} INFO - 1 downstream tasks scheduled from follow-on schedule check
+

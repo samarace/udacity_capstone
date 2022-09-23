@@ -1,0 +1,70 @@
+1.0.0.127.in-addr.arpa
+*** Reading local file: /Users/samar/airflow/logs/dag_id=us_immigration_and_demographics_dag/run_id=manual__2022-09-23T07:38:12.376771+00:00/task_id=Load_immigration_table/attempt=2.log
+[2022-09-23 13:27:45,091] {taskinstance.py:1179} INFO - Dependencies all met for <TaskInstance: us_immigration_and_demographics_dag.Load_immigration_table manual__2022-09-23T07:38:12.376771+00:00 [queued]>
+[2022-09-23 13:27:45,097] {taskinstance.py:1179} INFO - Dependencies all met for <TaskInstance: us_immigration_and_demographics_dag.Load_immigration_table manual__2022-09-23T07:38:12.376771+00:00 [queued]>
+[2022-09-23 13:27:45,097] {taskinstance.py:1376} INFO - 
+--------------------------------------------------------------------------------
+[2022-09-23 13:27:45,097] {taskinstance.py:1377} INFO - Starting attempt 2 of 2
+[2022-09-23 13:27:45,097] {taskinstance.py:1378} INFO - 
+--------------------------------------------------------------------------------
+[2022-09-23 13:27:45,106] {taskinstance.py:1397} INFO - Executing <Task(LoadTableOperator): Load_immigration_table> on 2022-09-23 07:38:12.376771+00:00
+[2022-09-23 13:27:45,109] {standard_task_runner.py:52} INFO - Started process 24207 to run task
+[2022-09-23 13:27:45,115] {standard_task_runner.py:79} INFO - Running: ['airflow', 'tasks', 'run', 'us_immigration_and_demographics_dag', 'Load_immigration_table', 'manual__2022-09-23T07:38:12.376771+00:00', '--job-id', '424', '--raw', '--subdir', 'DAGS_FOLDER/us_immigration_and_demographics_dag.py', '--cfg-path', '/var/folders/nw/yq4dq6kn2vq9jtj6_s7xh45h0000gn/T/tmp_d00pw21', '--error-file', '/var/folders/nw/yq4dq6kn2vq9jtj6_s7xh45h0000gn/T/tmpiop2r_mi']
+[2022-09-23 13:27:45,117] {standard_task_runner.py:80} INFO - Job 424: Subtask Load_immigration_table
+[2022-09-23 13:27:45,162] {task_command.py:371} INFO - Running <TaskInstance: us_immigration_and_demographics_dag.Load_immigration_table manual__2022-09-23T07:38:12.376771+00:00 [running]> on host 1.0.0.127.in-addr.arpa
+[2022-09-23 13:27:45,203] {taskinstance.py:1589} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=Samar Javed
+AIRFLOW_CTX_DAG_ID=us_immigration_and_demographics_dag
+AIRFLOW_CTX_TASK_ID=Load_immigration_table
+AIRFLOW_CTX_EXECUTION_DATE=2022-09-23T07:38:12.376771+00:00
+AIRFLOW_CTX_TRY_NUMBER=2
+AIRFLOW_CTX_DAG_RUN_ID=manual__2022-09-23T07:38:12.376771+00:00
+[2022-09-23 13:27:45,205] {load_table.py:30} INFO - Truncate table immigration 
+==========================================================================
+
+[2022-09-23 13:27:45,205] {load_table.py:31} INFO - Load table immigration
+[2022-09-23 13:27:45,209] {base.py:68} INFO - Using connection ID 'postgres' for task execution.
+[2022-09-23 13:27:45,244] {sql.py:315} INFO - Running statement: 
+        TRUNCATE TABLE immigration CASCADE;
+        INSERT INTO immigration(
+            SELECT 
+                CAST(cicid as int8),
+                CAST(i94yr as int4),
+                CAST(i94mon as int4),
+                CAST(i94cit as int4),
+                CAST(i94res as int4),
+                i94port,
+                CAST(arrdate as int8),
+                CAST(i94mode as int4),
+                i94addr,
+                CAST(depdate as int8),
+                CAST(i94bir as int4),
+                CAST(i94visa as int4),
+                CAST(count as int4),
+                CAST(dtadfile as int8),
+                visapost,
+                occup,
+                entdepa,
+                entdepd,
+                entdepu,
+                matflag,
+                CAST(biryear as int4),
+                dtaddto,
+                gender,
+                insnum,
+                airline,
+                admnum,
+                fltno,
+                visatype 
+            FROM staging_immigration 
+                where i94addr IN (select code FROM staging_i94address )
+                and CAST(i94cit as varchar) IN (SELECT CAST(code as varchar) FROM staging_i94country))
+    , parameters: None
+[2022-09-23 13:32:28,668] {sql.py:324} INFO - Rows affected: 2559296
+[2022-09-23 13:32:28,681] {load_table.py:33} INFO - Values successfully inserted in immigration table 
+==========================================================================
+
+[2022-09-23 13:32:28,689] {taskinstance.py:1415} INFO - Marking task as SUCCESS. dag_id=us_immigration_and_demographics_dag, task_id=Load_immigration_table, execution_date=20220923T073812, start_date=20220923T075745, end_date=20220923T080228
+[2022-09-23 13:32:28,704] {local_task_job.py:156} INFO - Task exited with return code 0
+[2022-09-23 13:32:28,727] {local_task_job.py:273} INFO - 1 downstream tasks scheduled from follow-on schedule check
+

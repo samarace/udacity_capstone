@@ -1,0 +1,51 @@
+1.0.0.127.in-addr.arpa
+*** Reading local file: /Users/samar/airflow/logs/dag_id=us_immigration_and_demographics_dag/run_id=manual__2022-09-23T07:38:12.376771+00:00/task_id=Run_data_quality_checks/attempt=1.log
+[2022-09-23 13:32:35,559] {taskinstance.py:1179} INFO - Dependencies all met for <TaskInstance: us_immigration_and_demographics_dag.Run_data_quality_checks manual__2022-09-23T07:38:12.376771+00:00 [queued]>
+[2022-09-23 13:32:35,565] {taskinstance.py:1179} INFO - Dependencies all met for <TaskInstance: us_immigration_and_demographics_dag.Run_data_quality_checks manual__2022-09-23T07:38:12.376771+00:00 [queued]>
+[2022-09-23 13:32:35,565] {taskinstance.py:1376} INFO - 
+--------------------------------------------------------------------------------
+[2022-09-23 13:32:35,566] {taskinstance.py:1377} INFO - Starting attempt 1 of 2
+[2022-09-23 13:32:35,566] {taskinstance.py:1378} INFO - 
+--------------------------------------------------------------------------------
+[2022-09-23 13:32:35,574] {taskinstance.py:1397} INFO - Executing <Task(DataQualityOperator): Run_data_quality_checks> on 2022-09-23 07:38:12.376771+00:00
+[2022-09-23 13:32:35,577] {standard_task_runner.py:52} INFO - Started process 24256 to run task
+[2022-09-23 13:32:35,583] {standard_task_runner.py:79} INFO - Running: ['airflow', 'tasks', 'run', 'us_immigration_and_demographics_dag', 'Run_data_quality_checks', 'manual__2022-09-23T07:38:12.376771+00:00', '--job-id', '425', '--raw', '--subdir', 'DAGS_FOLDER/us_immigration_and_demographics_dag.py', '--cfg-path', '/var/folders/nw/yq4dq6kn2vq9jtj6_s7xh45h0000gn/T/tmpb0qocnqn', '--error-file', '/var/folders/nw/yq4dq6kn2vq9jtj6_s7xh45h0000gn/T/tmpd88qoc27']
+[2022-09-23 13:32:35,585] {standard_task_runner.py:80} INFO - Job 425: Subtask Run_data_quality_checks
+[2022-09-23 13:32:35,629] {task_command.py:371} INFO - Running <TaskInstance: us_immigration_and_demographics_dag.Run_data_quality_checks manual__2022-09-23T07:38:12.376771+00:00 [running]> on host 1.0.0.127.in-addr.arpa
+[2022-09-23 13:32:35,675] {taskinstance.py:1589} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=Samar Javed
+AIRFLOW_CTX_DAG_ID=us_immigration_and_demographics_dag
+AIRFLOW_CTX_TASK_ID=Run_data_quality_checks
+AIRFLOW_CTX_EXECUTION_DATE=2022-09-23T07:38:12.376771+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=manual__2022-09-23T07:38:12.376771+00:00
+[2022-09-23 13:32:35,677] {data_quality.py:24} INFO - Starting with Data Quality checks
+========================================================
+
+[2022-09-23 13:32:35,677] {data_quality.py:28} INFO - <class 'list'>
+[2022-09-23 13:32:35,677] {data_quality.py:33} INFO - Running SQL: SELECT COUNT(*) FROM immigration WHERE cicid is null =====> Expected Result: 0
+[2022-09-23 13:32:35,682] {base.py:68} INFO - Using connection ID 'postgres' for task execution.
+[2022-09-23 13:32:35,729] {data_quality.py:38} INFO - Records retrieved: 0
+[2022-09-23 13:32:35,729] {data_quality.py:33} INFO - Running SQL: SELECT COUNT(*) FROM demographics WHERE race is null =====> Expected Result: 0
+[2022-09-23 13:32:35,731] {base.py:68} INFO - Using connection ID 'postgres' for task execution.
+[2022-09-23 13:32:35,744] {data_quality.py:38} INFO - Records retrieved: 0
+[2022-09-23 13:32:35,744] {data_quality.py:33} INFO - Running SQL: SELECT COUNT(*) FROM i94address WHERE code is null =====> Expected Result: 0
+[2022-09-23 13:32:35,747] {base.py:68} INFO - Using connection ID 'postgres' for task execution.
+[2022-09-23 13:32:35,754] {data_quality.py:38} INFO - Records retrieved: 0
+[2022-09-23 13:32:35,754] {data_quality.py:33} INFO - Running SQL: SELECT COUNT(*) FROM i94country WHERE code is null =====> Expected Result: 0
+[2022-09-23 13:32:35,756] {base.py:68} INFO - Using connection ID 'postgres' for task execution.
+[2022-09-23 13:32:35,763] {data_quality.py:38} INFO - Records retrieved: 0
+[2022-09-23 13:32:35,764] {data_quality.py:33} INFO - Running SQL: SELECT COUNT(*) FROM i94port WHERE code is null =====> Expected Result: 0
+[2022-09-23 13:32:35,766] {base.py:68} INFO - Using connection ID 'postgres' for task execution.
+[2022-09-23 13:32:35,772] {data_quality.py:38} INFO - Records retrieved: 0
+[2022-09-23 13:32:35,772] {data_quality.py:33} INFO - Running SQL: SELECT COUNT(*) FROM i94mode WHERE code is null =====> Expected Result: 0
+[2022-09-23 13:32:35,775] {base.py:68} INFO - Using connection ID 'postgres' for task execution.
+[2022-09-23 13:32:35,781] {data_quality.py:38} INFO - Records retrieved: 0
+[2022-09-23 13:32:35,781] {data_quality.py:33} INFO - Running SQL: SELECT COUNT(*) FROM i94visa WHERE code is null =====> Expected Result: 0
+[2022-09-23 13:32:35,783] {base.py:68} INFO - Using connection ID 'postgres' for task execution.
+[2022-09-23 13:32:35,790] {data_quality.py:38} INFO - Records retrieved: 0
+[2022-09-23 13:32:35,790] {data_quality.py:49} INFO - Data Quality checks passed!
+[2022-09-23 13:32:35,796] {taskinstance.py:1415} INFO - Marking task as SUCCESS. dag_id=us_immigration_and_demographics_dag, task_id=Run_data_quality_checks, execution_date=20220923T073812, start_date=20220923T080235, end_date=20220923T080235
+[2022-09-23 13:32:35,852] {local_task_job.py:156} INFO - Task exited with return code 0
+[2022-09-23 13:32:35,877] {local_task_job.py:273} INFO - 1 downstream tasks scheduled from follow-on schedule check
+
