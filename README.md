@@ -57,7 +57,8 @@ Detailed explanation of the project can be found here
 
 * **images:** contains the images for Staging_diagram, ERD, Airflow_Postgres_conn, DAG, logs_Run_Data_Quality_Checks
 
-* **data:** contains the following files - airport-codes_csv.csv, I94_SAS_Labels_Descriptions.SAS, immigration_data_sample.csv, us-cities-demographics.csv, sas_data parquet files, world temperature dataset
+* **data:** contains the following files - airport-codes_csv.csv, I94_SAS_Labels_Descriptions.SAS, immigration_data_sample.csv, us-cities-demographics.csv, sas_data parquet files, world temperature dataset.
+Please note: CSV files are not uploaded on github because of their large size.
 
 * **postgresql-42.5.5.jar:** jar file for postgres
 
